@@ -7,7 +7,7 @@ test('extracting hashtags from test', t => {
   const tags = new HashTagsExtractorService().perform(new HashTagsExtractorCommand(message))
   t.deepEqual(tags, [
     'picture',
-    'awesom',
+    'awesome',
     'zucchinidev',
     'ava',
     '100',
