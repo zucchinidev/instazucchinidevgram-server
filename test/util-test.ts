@@ -1,7 +1,11 @@
 import test from 'ava'
 
-const fn = async (): Promise<string> => Promise.resolve('foo')
+test('this should pass', t => {
+  t.pass()
+})
 
-test(async (t) => {
-  t.is(await fn(), 'foo')
+test('it should support async/await', async (t) => {
+  const p = Promise.resolve<string>('foo')
+  const secret = await p
+  t.is(secret, 'foo')
 })
