@@ -1,8 +1,8 @@
 import { RequestHandler, Request, Response } from 'express'
-import { MulterS3Adapter } from '../MulterS3Adapter'
-import { S3FactoryClient } from '../S3FactoryClient'
+import { MulterS3Adapter } from '../Persistence/MulterS3Adapter'
+import { S3FactoryClient } from '../Persistence/S3FactoryClient'
 import { config } from '../../config'
-import { MulterMiddleware } from '../MulterMiddleware'
+import { MulterMiddleware } from '../Middlewares/MulterMiddleware'
 
 export class PictureController {
   static uploadPicture (): RequestHandler {
