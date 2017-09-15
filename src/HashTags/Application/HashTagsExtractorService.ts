@@ -1,6 +1,9 @@
 import { HashTagsExtractorCommand } from './HashTagsExtractorCommand'
 
 export class HashTagsExtractorService {
+  constructor (private hashTagRegExp: RegExp) {
+    this.hashTagRegExp = /#(\w+)/g
+  }
 
   perform (hashTagsExtractorCommand: HashTagsExtractorCommand): Array<string> {
     const message = hashTagsExtractorCommand.getMessage()
@@ -9,8 +12,7 @@ export class HashTagsExtractorService {
       return []
     }
 
-    const hashTagRegExp = /#(\w+)/g
-    const matches = message.match(hashTagRegExp)
+    const matches = message.match(this.hashTagRegExp)
     if (matches === null) {
       return []
     }

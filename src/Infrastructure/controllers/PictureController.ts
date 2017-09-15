@@ -1,6 +1,6 @@
 import { RequestHandler, Request, Response } from 'express'
-import { MulterS3Adapter } from '../Persistence/MulterS3Adapter'
-import { S3FactoryClient } from '../Persistence/S3FactoryClient'
+import { MulterS3Adapter } from '../Persistence/S3/MulterS3Adapter'
+import { S3FactoryClient } from '../Persistence/S3/S3FactoryClient'
 import { config } from '../../config'
 import { MulterMiddleware } from '../Middlewares/MulterMiddleware'
 
