@@ -1,7 +1,8 @@
 import { HashTagsExtractorCommand } from './HashTagsExtractorCommand'
 
 export class HashTagsExtractorService {
-  constructor (private hashTagRegExp: RegExp) {
+  private hashTagRegExp: RegExp
+  constructor () {
     this.hashTagRegExp = /#(\w+)/g
   }
 
