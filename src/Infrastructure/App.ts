@@ -1,15 +1,21 @@
 import * as express from 'express'
-import { Express } from 'express'
-import { AppRouter } from './routes/AppRouter'
+import { Application } from 'express'
+import { AppRouter } from './Routes/AppRouter'
+import { container } from '../Core/IoC/IoC'
+import { TYPES } from '../Core/IoC/Types'
+import { IOptionsConnectionChain } from './Persistence/Mongo/Interfaces/IOptoinsConnectionChain'
+import { ConfigureOptionsConnectionChain } from './Persistence/Mongo/ConfigureOptionsConnectionChain'
 
 const port = 3000
 
 export class App {
-  public express: Express
+  public express: Application
 
   constructor () {
     this.express = express()
     this.configureRoutes()
+    this.express.set('container', container)
+    this.configureDbConnection()
   }
 
   configureRoutes () {
@@ -25,5 +31,11 @@ export class App {
 
       console.log(`Server listen port ${port}`)
     })
+  }
+
+  private configureDbConnection () {
+    container
+      .bind<IOptionsConnectionChain>(TYPES.OptionsConnectionChain)
+      .toConstantValue(ConfigureOptionsConnectionChain.configure())
   }
 }
