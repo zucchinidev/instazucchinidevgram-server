@@ -14,19 +14,15 @@ export class MongoConnectionChain implements ConnectionChain {
     return `${this.getHost()}:${this.getPort()}/${this.getDbName()}`
   }
 
-  getHost () {
-    const { host } = this.optionsConnectionChain
-    return host
+  getHost (): string {
+    return this.optionsConnectionChain.host
   }
 
-  getDbName () {
-    const { dbName } = this.optionsConnectionChain
-    return dbName
+  getDbName (): string {
+    return this.optionsConnectionChain.dbName
   }
 
-  getPort () {
-    const { port } = this.optionsConnectionChain
-    return port
+  getPort (): number {
+    return this.optionsConnectionChain.port
   }
-
 }
