@@ -3,6 +3,8 @@ import { IMongoRepository } from '../../Infrastructure/Persistence/Mongo/Interfa
 import { TYPES } from '../../Core/IoC/Types'
 import { TAGS } from '../../Core/IoC/Tags'
 import { IImage } from '../Domain/Interfaces/IImage'
+import { HashTagsExtractorService } from '../../HashTags/Application/HashTagsExtractorService'
+import { HashTagsExtractorCommand } from '../../HashTags/Application/HashTagsExtractorCommand'
 
 @injectable()
 export class SaveImageService {
@@ -11,6 +13,9 @@ export class SaveImageService {
 
   save (image: IImage): Promise<IImage> {
     image.createdAt = new Date().getTime()
+    image.tags = new HashTagsExtractorService().perform(
+      new HashTagsExtractorCommand(image.description)
+    )
     return this.imageRepository.insertOne(image)
   }
 }

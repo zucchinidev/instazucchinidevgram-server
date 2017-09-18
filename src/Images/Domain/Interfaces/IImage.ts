@@ -1,5 +1,6 @@
 export interface IImage {
   createdAt: number,
+  description: string,
   liked: boolean,
   likes: number,
   tags: string[],
