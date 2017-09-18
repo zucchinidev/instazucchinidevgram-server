@@ -31,7 +31,7 @@ test.after.always('remove database', async t => {
   const connection = await mongoConnection.getConnection()
   await connection.dropDatabase()
   const dbs = await connection.admin().listDatabases()
-  const found = dbs.databases.find((d: {name: string}) => d.name === optionsConnectionChain.dbName)
+  const found = dbs.databases.find((d: { name: string }) => d.name === optionsConnectionChain.dbName)
   t.falsy(found, 'not found')
 })
 
@@ -40,25 +40,31 @@ test('should create an image', async t => {
   const saveImageService = container.get<SaveImageService>(TYPES.SaveImageService)
   t.is(typeof saveImageService.save, 'function', 'save is a function')
   const fixture: IImage = {
-    tags: [
-      'picture',
-      'awesome',
-      'zucchinidev',
-      'ava',
-      '100',
-      'yes'
-    ],
+    tags: [],
     url: `https://fakeimage.test/${v4()}.jpg`,
     likes: 0,
     liked: false,
     userId: v4(),
-    createdAt: null
+    createdAt: null,
+    description: 'a #picture with tags #AweSome #zucchinidev #AVA and #100 ##yes'
   }
+
+  const extractedTags = [
+    'picture',
+    'awesome',
+    'zucchinidev',
+    'ava',
+    '100',
+    'yes'
+  ]
+
   const createdImage = await saveImageService.save(fixture)
   t.is(createdImage.url, fixture.url)
   t.is(createdImage.likes, fixture.likes)
   t.is(createdImage.liked, fixture.liked)
   t.is(createdImage.userId, fixture.userId)
+  t.is(createdImage.description, fixture.description)
+  t.deepEqual(createdImage.tags, extractedTags)
   t.is(typeof createdImage._id, 'string')
   t.truthy(createdImage.createdAt)
 })
