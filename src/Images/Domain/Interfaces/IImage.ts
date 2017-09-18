@@ -1,3 +1,9 @@
 export interface IImage {
-  tags: string[]
+  createdAt: number,
+  liked: boolean,
+  likes: number,
+  tags: string[],
+  url: string,
+  userId: string,
+  _id?: string
 }
